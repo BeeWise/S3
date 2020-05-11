@@ -7,6 +7,7 @@ let package = Package(
         .macOS(.v10_15)
     ],
     products: [
+        .library(name: "S3", targets: ["S3"]),
         .library(name: "S3Kit", targets: ["S3Kit"]),
         .library(name: "S3Signer", targets: ["S3Signer"]),
         //        .library(name: "S3TestTools", targets: ["S3TestTools"])
