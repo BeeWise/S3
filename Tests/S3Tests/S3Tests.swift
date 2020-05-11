@@ -214,7 +214,7 @@ class S3Tests: BaseTestCase {
 		XCTAssertEqual(expectedSignature, signature)
 
 		
-		let expectedURLString = "https://examplebucket.s3.amazonaws.com/test.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=17594f59285415a5be4debfcf5227a2d78b7c2634442b7ab816cace9333ec989"
+		let expectedURLString = "https://examplebucket.s3.amazonaws.com/test.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=aeeed9bbccd4d02ee5c0109b86d86835f995330da4c265957d157751f604d404"
 
         let presignedURL = try! signer.presignedURL(for: .GET, url: requestURL, expiration: Expiration.custom(86400), region: region, headers: [:], dates: overridenDate)
 

@@ -72,10 +72,10 @@ class AWSTestSuite: BaseTestCase {
 		XCTAssertEqual(expectedAuthHeader, authHeader)
 		
 		let allExpectedHeadersForRequest = [
-			"host": "s3.us-east-1.amazonaws.com",
+			"Host": "s3.us-east-1.amazonaws.com",
             "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 			"x-amz-date": "20130524T000000Z",
-			"authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE/20130524/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=8745d16e49fb5550634d56c2c4bb6841e42d7595f8529cf9ea14d05d51935b20"
+			"Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE/20130524/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=8745d16e49fb5550634d56c2c4bb6841e42d7595f8529cf9ea14d05d51935b20"
 		]
 
         let allHeadersForRequest = try! signer.headers(for: .GET, urlString: requestURLString, payload: .none, dates: overridenDate)
@@ -204,10 +204,10 @@ class AWSTestSuite: BaseTestCase {
 		XCTAssertEqual(expectedAuthHeader, authHeader)
 		
 		let allExpectedHeadersForRequest = [
-			"host": "s3.us-east-1.amazonaws.com",
+			"Host": "s3.us-east-1.amazonaws.com",
             "x-amz-date": "20130524T000000Z",
             "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-			"authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE/20130524/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=ea870aa535725edbb806253d7eaac9b0c38cdb256efc42c18739a2e8c14bc2ee"
+			"Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE/20130524/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=ea870aa535725edbb806253d7eaac9b0c38cdb256efc42c18739a2e8c14bc2ee"
 		]
 
         let allHeadersForRequest = try! signer.headers(for: .POST, urlString: requestURLString, payload: .none, dates: overridenDate)
