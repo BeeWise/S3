@@ -1,7 +1,9 @@
 import Foundation
 import NIO
 import AsyncHTTPClient
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 extension S3 {
     
@@ -28,7 +30,10 @@ extension S3 {
                 body: body
             )
             
-            return httpClient.execute(request: request, eventLoop: .delegate(on: eventLoop))
+            return self.httpClient.execute(request: request).flatMapThrowing { res in
+                try self.httpClient.syncShutdown()
+                return res
+            }
         } catch {
             return eventLoop.makeFailedFuture(error)
         }
