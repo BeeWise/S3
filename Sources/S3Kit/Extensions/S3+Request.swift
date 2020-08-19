@@ -29,20 +29,7 @@ extension S3 {
                 headers: headers,
                 body: body
             )
-            
-            defer {
-                try? self.httpClient.syncShutdown()
-            }
-            
-            let promise = self.eventLoop.makePromise(of: HTTPClient.Response.self)
-            let future = self.httpClient.execute(request: request)
-            future.whenComplete { result in
-                switch result {
-                    case .success(let response): promise.succeed(response); break
-                    case .failure(let error): promise.fail(error); break
-                }
-            }
-            return promise.futureResult
+            return self.httpClient.execute(request: request, eventLoop: .delegate(on: self.eventLoop))
         } catch {
             return eventLoop.makeFailedFuture(error)
         }
