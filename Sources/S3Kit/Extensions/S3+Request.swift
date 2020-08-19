@@ -30,10 +30,19 @@ extension S3 {
                 body: body
             )
             
-            return self.httpClient.execute(request: request).flatMapThrowing { res in
-                try self.httpClient.syncShutdown()
-                return res
+            defer {
+                try? self.httpClient.syncShutdown()
             }
+            
+            let promise = self.eventLoop.makePromise(of: HTTPClient.Response.self)
+            let future = self.httpClient.execute(request: request)
+            future.whenComplete { result in
+                switch result {
+                    case .success(let response): promise.succeed(response); break
+                    case .failure(let error): promise.fail(error); break
+                }
+            }
+            return promise.futureResult
         } catch {
             return eventLoop.makeFailedFuture(error)
         }
